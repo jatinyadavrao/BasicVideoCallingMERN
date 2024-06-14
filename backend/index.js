@@ -1,11 +1,17 @@
 const express = require('express');
 const app = express();
 const http = require('http');
+const cors = require('cors')
 const { Server } = require('socket.io');
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: { origin: '*' }
 });
+app.use(cors({
+    origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+}));
 
 io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
