@@ -1,18 +1,20 @@
 const express = require('express');
 const app = express();
 const http = require('http');
-const cors = require('cors')
+const cors = require('cors');
 const { Server } = require('socket.io');
 const server = http.createServer(app);
 const io = new Server(server, {
-    cors: { origin: '*' }
+    cors: {
+        origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Content-Type'],
+    }
 });
-app.use(cors({
-    origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-}));
 
+app.use(cors()); // Remove the previous app.use(cors(...)) middleware
+
+// Socket.IO events handling remains the same
 io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
 
@@ -42,6 +44,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(3000, () => {
+server.listen(process.env.PORT || 3000, () => {
     console.log("Listening at port 3000");
 });
