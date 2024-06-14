@@ -7,9 +7,7 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const newSocket = io('https://basic-video-calling-mern-webrtc-backend.vercel.app', {
-            transports: ['websocket'], // Explicitly enable WebSocket transport
-        });
+        const newSocket = io('https://basic-video-calling-mern-webrtc-backend.vercel.app');
 
         setSocket(newSocket);
 
