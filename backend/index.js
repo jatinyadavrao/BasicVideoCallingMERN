@@ -1,23 +1,25 @@
-const express = require('express');
-const http = require('http');
-const cors = require('cors');
 const { Server } = require('socket.io');
+const { createServer } = require('http');
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-        origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
-        methods: ['GET', 'POST'],
-        allowedHeaders: ['Content-Type'],
-    }
-});
 
 app.use(cors({
     origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
+    credentials: true
 }));
+
+const server = createServer(app);
+
+const io = new Server(server, {
+    cors: {
+        origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
+        methods: ['GET', 'POST'],
+        credentials: true
+    }
+});
 
 io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
@@ -29,17 +31,14 @@ io.on('connection', (socket) => {
     });
 
     socket.on('call-user', (data) => {
-        console.log(`Received call-user from ${socket.id} in room ${data.room}`);
         socket.to(data.room).emit('incoming-call', data);
     });
 
     socket.on('answer', (data) => {
-        console.log(`Received answer from ${socket.id} in room ${data.room}`);
         socket.to(data.room).emit('answered', data);
     });
 
     socket.on('ice-candidate', (data) => {
-        console.log(`Received ICE candidate from ${socket.id} in room ${data.room}`);
         socket.to(data.room).emit('ice-candidate', data);
     });
 
