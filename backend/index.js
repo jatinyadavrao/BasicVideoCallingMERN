@@ -13,7 +13,11 @@ const io = new Server(server, {
     }
 });
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+}));
 
 io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
