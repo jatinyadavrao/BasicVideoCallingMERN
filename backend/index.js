@@ -13,7 +13,7 @@ const io = new Server(server, {
 });
 
 app.use(cors()); // Remove the previous app.use(cors(...)) middleware
-
+app.get("/", (req, res) => res.send("Express on Vercel"));
 // Socket.IO events handling remains the same
 io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
