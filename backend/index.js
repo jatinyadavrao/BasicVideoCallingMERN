@@ -6,9 +6,7 @@ const { Server } = require('socket.io');
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: '*',
-        methods: ['GET', 'POST'],
-        allowedHeaders: ['Content-Type'],
+        origin: '*'
     }
 });
 
