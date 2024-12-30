@@ -9,7 +9,7 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-      const newSocket = io('https://basic-video-calling-backend-webrtc-mern.onrender.com');
+      const newSocket = io('https://basicvideocallingmern.onrender.com');
         setSocket(newSocket);
         console.log('newSocket')
         console.log(newSocket)
