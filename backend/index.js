@@ -12,7 +12,7 @@ app.use(cors({
 }));
 
 const server = createServer(app);
-
+app.get('/',(req,res)=>{res.send("hey")})
 const io = new Server(server, {
     cors: {
         origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
