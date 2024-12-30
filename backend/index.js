@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-    origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
+    origin: 'https://basic-video-calling-mern.vercel.app/',
     methods: ['GET', 'POST'],
     credentials: true
 }));
@@ -15,7 +15,7 @@ const server = createServer(app);
 app.get('/',(req,res)=>{res.send("hey")})
 const io = new Server(server, {
     cors: {
-        origin: 'https://basic-video-calling-mern-webrtc-frontend.vercel.app',
+        origin: 'https://basic-video-calling-mern.vercel.app/',
         methods: ['GET', 'POST'],
         credentials: true
     }
